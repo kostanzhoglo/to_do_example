@@ -29,6 +29,7 @@ describe('Input form', () => {
       cy.get('.new-todo')
         .type(itemText)
         .type('{enter}')
+        .should('have.value', '')
       cy.get('.todo-list li')
         .should('have.length', 1)
         .and('contain', itemText)
