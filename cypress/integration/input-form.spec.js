@@ -6,7 +6,7 @@ describe('Input form', () => {
       .should('have.class', 'new-todo')
   })
 
-  it.only('accepts input', () => {
+  it('accepts input', () => {
     const typedText = 'Buy taco ingredients'
     cy.visit('http://localhost:3030')
 
