@@ -26,6 +26,7 @@ export default class TodoApp extends Component {
     event.preventDefault()
     const newTodo = {name: this.state.currentTodo, isComplete: false}
     saveTodo(newTodo)
+      // .then handles the PROMISE resolution from the ajax call.  takes the return value from that promise, and...
       .then(({data}) => this.setState({
         todos: this.state.todos.concat(data)
       }))

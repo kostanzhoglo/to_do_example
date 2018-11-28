@@ -18,9 +18,20 @@ describe('Input form', () => {
 
   context('Form submission', () => {
     it.only('Adds a new todo on submit', () => {
+      const itemText = 'Buy eggs'
+      cy.server() // starts up the Cypress server, so you can stub responses with known data, allowing you to test functionality even if the back-end isn't built yet.
+      // cy.route DEFINES the Request you want to handle. The 3rd parameter is a predefined response you want to SEND Back to your app, as if you had successfully reached a real, working API.
+      cy.route('POST', '/api/todos', {
+        name: itemText,
+        id: 1,
+        isComplete: false
+      })
       cy.get('.new-todo')
-        .type('Buy eggs')
+        .type(itemText)
         .type('{enter}')
+      cy.get('.todo-list li')
+        .should('have.length', 1)
+        .and('contain', itemText)
     })
   })
 })
