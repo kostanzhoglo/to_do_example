@@ -9,9 +9,9 @@ export default props =>
       onChange={props.handleNewTodoChange}
       className="new-todo"
       placeholder="What needs to be done?"/>
-    <input
+    {/* <input
       type='text'
       // autoFocus
       className="my-dad"
-      placeholder="Whatchoo doin'?"/>
+      placeholder="Whatchoo doin'?"/> */}
   </form>
