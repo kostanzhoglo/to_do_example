@@ -45,18 +45,31 @@ export default class TodoApp extends Component {
       ...targetTodo,
       isComplete: !targetTodo.isComplete
     }
+    // OLD CODE.  REFACTORED BELOW using .map .
+    // updateTodo(updated)
+    //   .then(
+    //     ({data}) => {
+    //       debugger
+    //       const targetIndex = this.state.todos.findIndex(
+    //         todo => todo.id === data.id
+    //       )
+    //       const todos = [
+    //         ...this.state.todos.slice(0, targetIndex),
+    //         data,
+    //         ...this.state.todos.slice(targetIndex + 1)
+    //       ]
+    //       this.setState({ todos: todos })
+    //     }
+    //   )
     updateTodo(updated)
-      .then(({data}) => {
-        const targetIndex = this.state.todos.findIndex(
-          todo => todo.id === data.id
-        )
-        const todos = [
-          ...this.state.todos.slice(0, targetIndex),
-          data,
-          ...this.state.todos.slice(targetIndex)
-        ]
-        this.setState({ todos: todos })
-      })
+      .then(
+        ({data}) => {
+          const todos = this.state.todos.map(
+            todo => todo.id === data.id ? data : todo
+          )
+          this.setState({todos: todos})
+        }
+      )
   }
 
   handleTodoSubmit (event) {
