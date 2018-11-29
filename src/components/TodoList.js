@@ -7,6 +7,7 @@ const TodoItem = props =>
         className="toggle"
         type="checkbox"
         checked={props.isComplete}
+        onChange={() => props.handleToggle(props.id)}
       />
       <label>
         {props.name}
@@ -25,6 +26,7 @@ export default props =>
         key={todo.id}
         {...todo}
         handleDelete={props.handleDelete}
+        handleToggle={props.handleToggle}
       />))
     }
   </ul>
