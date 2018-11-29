@@ -40,7 +40,7 @@ describe('List-items', () => {
       .and('not.contain', 'Milk')
   })
 
-  it.only('Marks an incomplete item complete', () => { // UPDATING a todo
+  it('Marks an incomplete item complete', () => { // UPDATING a todo
     // This WHOLE first part of this test is to ALTER one of the todos from our fixture array
     // so it'll make sense for THIS test, and won't screw up our other testing data from fixtures.
     cy.fixture('todos') // accessing todos.json file data
