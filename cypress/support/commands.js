@@ -23,3 +23,10 @@
 //
 // -- This is will overwrite an existing command --
 // Cypress.Commands.overwrite("visit", (originalFn, url, options) => { ... })
+
+Cypress.Commands.add('seedAndVisit', () => {
+  cy.server()
+  // 3rd argument is the RESPONSE BODY from the API call, and we want to respond with an array of todos.
+  cy.route('GET', '/api/todos', 'fixture:todos')
+  cy.visit('/')
+})
