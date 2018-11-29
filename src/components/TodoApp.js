@@ -20,7 +20,10 @@ export default class TodoApp extends Component {
 
   componentDidMount () {
     loadTodos()
-      .then(({ data }) => this.setState({ todos: data }))
+      .then(({ data }) => this.setState({
+        todos: data
+      }))
+      .catch(() => this.setState({error: true}))
   }
 
   handleNewTodoChange (event) {
@@ -44,7 +47,7 @@ export default class TodoApp extends Component {
       <Router>
         <div>
           <header className="header">
-            <h1>todos</h1>
+            <h1>Todos</h1>
             {this.state.error ? <span className='error'>Uh oh!</span> : null}
             <TodoForm
               currentTodo={this.state.currentTodo}
