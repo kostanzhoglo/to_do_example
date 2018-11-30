@@ -4,6 +4,7 @@ import TodoForm from './TodoForm'
 import TodoList from './TodoList'
 import Footer from './Footer'
 import { saveTodo, loadTodos, destroyTodo, updateTodo } from '../lib/service';
+import { filterTodos } from '../lib/utils';
 
 
 export default class TodoApp extends Component {
@@ -103,7 +104,7 @@ export default class TodoApp extends Component {
             path='/:filter?' // the ? makes this parameter optional. This Route will match the route url with any additional segment.
             render={({match}) =>
               <TodoList
-                todos={this.state.todos}
+                todos={filterTodos(match.params.filter, this.state.todos)}
                 handleDelete={this.handleDelete}
                 handleToggle={this.handleToggle}
               />
