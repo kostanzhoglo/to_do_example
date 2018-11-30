@@ -73,22 +73,30 @@ describe('Smoke tests', () => {
         .should('not.exist')
     })
 
-  it.only('Toggles todos', () => {
+  it('Toggles todos', () => {
+    const clickAndWait = (el) => {
+      cy.wrap(el)
+        .as('item')
+        .find('.toggle')
+        .click() // this will trigger call to back end, so time to wait...
+
+      cy.wait('@update')
+    }
+
     cy.server()
     cy.route('PUT', `/api/todos/*`) // again, doesn't care about any specific todo.  Update ALL of them.
       .as('update')
 
     cy.get('.todo-list li')
       .each(el => {
-        cy.wrap(el)
-          .as('item')
-          .find('.toggle')
-          .click() // this will trigger call to back end, so time to wait...
-
-        cy.wait('@update')
-
+        clickAndWait(el)
         cy.get('@item') // time travel back up to line 84. 6 lines above.
           .should('have.class', 'completed')
+      })
+      .each(el => {
+        clickAndWait(el)
+        cy.get('@item')
+          .should('not.have.class', 'completed')
       })
     })
   })
