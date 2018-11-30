@@ -23,7 +23,7 @@ describe('Input form', () => {
     })
     it('Adds a new todo on submit', () => {
       const itemText = 'Buy eggs'
-      // cy.route DEFINES the Request you want to handle. The 3rd parameter is a predefined response you want to SEND Back to your app, as if you had successfully reached a real, working API.
+      // cy.route DEFINES the Request you want to handle. The 3rd parameter is a predefined response you want to SEND Back to your app, as if you had successfully reached a real, working API. Don't need 3rd param if you're hitting a real backend.
       cy.route('POST', '/api/todos', {
         name: itemText,
         id: 1,
