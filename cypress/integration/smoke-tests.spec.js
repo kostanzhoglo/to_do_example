@@ -14,7 +14,7 @@ describe('Smoke tests', () => {
       ]
       cy.visit('/')
       cy.server() // this and next 2 lines creates a Request to back API that will eventually wait for response, to test that API is working. We avoid adding an artificial delay by doing this.
-      cy.route('POST', '/api/todos')
+      cy.route('POST', '/api/todos') // is cy.ROUTE interchangeable with cy.REQUEST???  ***************
         .as('create')
 
       cy.wrap(items)
@@ -38,6 +38,17 @@ describe('Smoke tests', () => {
       //
       // cy.get('.todo-list li')
       //   .should('have.length', 1)
+    })
+  })
+
+  context('With active todos', () => {
+    beforeEach(() => {
+      cy.fixture('todos')
+        .each(todo => {
+          const newTodo = Cypress._.merge(todo, {isComplete: false})
+          cy.request('POST', '/api/todos', newTodo)
+        })
+      cy.visit('/')
     })
   })
 })
