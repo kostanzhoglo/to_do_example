@@ -50,12 +50,13 @@ describe('Smoke tests', () => {
         })
       cy.visit('/')
     })
+
     it('Loads existing data from the DB', () => {
       cy.get('.todo-list li')
         .should('have.length', 4)
     })
 
-    it.only('Deletes todos', () => {
+    it('Deletes todos', () => {
       cy.server()
       cy.route('DELETE', '/api/todos/*') // for this test, we don't care about the ID values. We'll delete ALL the todos.
         .as('delete')
@@ -70,6 +71,25 @@ describe('Smoke tests', () => {
           cy.wait('@delete')
         })
         .should('not.exist')
+    })
+
+  it.only('Toggles todos', () => {
+    cy.server()
+    cy.route('PUT', `/api/todos/*`) // again, doesn't care about any specific todo.  Update ALL of them.
+      .as('update')
+
+    cy.get('.todo-list li')
+      .each(el => {
+        cy.wrap(el)
+          .as('item')
+          .find('.toggle')
+          .click() // this will trigger call to back end, so time to wait...
+
+        cy.wait('@update')
+
+        cy.get('@item') // time travel back up to line 84. 6 lines above.
+          .should('have.class', 'completed')
+      })
     })
   })
 })
