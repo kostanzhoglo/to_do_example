@@ -99,11 +99,16 @@ export default class TodoApp extends Component {
             />
           </header>
           <section className="main">
-            <TodoList
-              todos={this.state.todos}
-              handleDelete={this.handleDelete}
-              handleToggle={this.handleToggle}
-            />
+          <Route
+            path='/:filter?' // the ? makes this parameter optional. This Route will match the route url with any additional segment.
+            render={({match}) =>
+              <TodoList
+                todos={this.state.todos}
+                handleDelete={this.handleDelete}
+                handleToggle={this.handleToggle}
+              />
+            }
+          />
           </section>
           <Footer
             remaining={remaining}
