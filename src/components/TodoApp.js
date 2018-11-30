@@ -76,13 +76,15 @@ export default class TodoApp extends Component {
   handleTodoSubmit (event) {
     event.preventDefault()
     const newTodo = {name: this.state.currentTodo, isComplete: false}
-    saveTodo(newTodo)
-      // .then handles the PROMISE resolution from the ajax call.  takes the return value from that promise, and...
-      .then(({data}) => this.setState({
-        todos: this.state.todos.concat(data),
-        currentTodo: ''
-      }))
-      .catch(() => this.setState({error: true}))
+    setTimeout(() => {
+      saveTodo(newTodo)
+        // .then handles the PROMISE resolution from the ajax call.  takes the return value from that promise, and...
+        .then(({data}) => this.setState({
+          todos: this.state.todos.concat(data),
+          currentTodo: ''
+        }))
+        .catch(() => this.setState({error: true}))
+    }, 4500)
   }
 
   render () {
