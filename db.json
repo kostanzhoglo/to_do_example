@@ -1,1 +1,19 @@
-{}
+{
+  "todos": [
+    {
+      "name": "buy milk",
+      "isComplete": false,
+      "id": 1
+    },
+    {
+      "name": "go for run",
+      "isComplete": true,
+      "id": 2
+    },
+    {
+      "name": "eat dinner",
+      "isComplete": true,
+      "id": 3
+    }
+  ]
+}
