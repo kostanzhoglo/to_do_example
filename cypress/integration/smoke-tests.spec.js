@@ -50,5 +50,26 @@ describe('Smoke tests', () => {
         })
       cy.visit('/')
     })
+    it('Loads existing data from the DB', () => {
+      cy.get('.todo-list li')
+        .should('have.length', 4)
+    })
+
+    it.only('Deletes todos', () => {
+      cy.server()
+      cy.route('DELETE', '/api/todos/*') // for this test, we don't care about the ID values. We'll delete ALL the todos.
+        .as('delete')
+
+      cy.get('.todo-list li')
+        .each(el => {
+          cy.wrap(el)
+            .find('.destroy') // invisible button, so have to get button to APPEAR...
+            .invoke('show')
+            .click()
+
+          cy.wait('@delete')
+        })
+        .should('not.exist')
+    })
   })
 })
