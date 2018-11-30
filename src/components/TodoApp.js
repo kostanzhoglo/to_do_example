@@ -76,7 +76,7 @@ export default class TodoApp extends Component {
   handleTodoSubmit (event) {
     event.preventDefault()
     const newTodo = {name: this.state.currentTodo, isComplete: false}
-    setTimeout(() => {
+    // setTimeout(() => {
       saveTodo(newTodo)
         // .then handles the PROMISE resolution from the ajax call.  takes the return value from that promise, and...
         .then(({data}) => this.setState({
@@ -84,7 +84,7 @@ export default class TodoApp extends Component {
           currentTodo: ''
         }))
         .catch(() => this.setState({error: true}))
-    }, 4500)
+    // }, 5500) END of setTimeout from before...
   }
 
   render () {

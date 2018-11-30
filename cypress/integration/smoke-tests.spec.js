@@ -8,8 +8,14 @@ describe('Smoke tests', () => {
   context('With no todos', () => {
     it.only('Saves new todos', () => {
       cy.visit('/')
+      cy.server() // this and next 2 lines creates a Request to back API that will eventually wait for response, to test that API is working. We avoid adding an artificial delay by doing this.
+      cy.route('POST', '/api/todos')
+        .as('create')
+
       cy.focused()
         .type('Buy milk{enter}')
+
+      cy.wait('@create') // telling Cypress to WAIT for the response from API before moving on. This will stop Cypress from timing out on a test. INTERESTING.
 
       cy.get('.todo-list li')
         .should('have.length', 1)
